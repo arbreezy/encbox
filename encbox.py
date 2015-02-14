@@ -14,6 +14,12 @@ if leng == 0:
     print("Try './encbox /path/to/file'\nQuiting!")
     sys.exit(1)
 
+def Bloomfilter():
+	f=BloomFilter(capacity=1000,error_rate=0.001)
+	for i in xrange(0,f.capacity):
+		for i in range(leng):
+			f.add(sys.argv[i+1])
+	print "*Filtering is finished*"
 
 def encrypt_file(key,in_filename, out_filename=None, chunksize=64*1024):
     """ Encrypts a file using AES (CBC mode) with the
@@ -81,6 +87,8 @@ code = raw_input("Enter the authorization code here: ").strip()
 access_token,user_id= flow.finish(code)
 client = dropbox.client.DropboxClient(access_token)
 print 'The account has been linked successfully'
+print
+Bloomfilter()
 print
 print "Give a srong password to generate the key for AES encryption"
 password=getpass.getpass()
