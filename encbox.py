@@ -56,7 +56,7 @@ def encrypt_file(key,in_filename, out_filename=None, chunksize=64*1024):
                     chunk += ' ' * (16 - len(chunk) % 16)
 
                 outfile.write(encryptor.encrypt(chunk))
-   #print "The new encrypted file is -->" ,out_filename
+   
 
 #taking the app key and secret 
 key=raw_input('Enter your app key : ')
@@ -79,6 +79,6 @@ code = raw_input("Enter the authorization code here: ").strip()
 access_token,user_id= flow.finish(code)
 client = dropbox.client.DropboxClient(access_token)
 print 'The account has been linked successfully'
-
+print
 
 
