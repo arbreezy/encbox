@@ -1,6 +1,16 @@
 #!/usr/bin/python
 #lets import the dropbox module
 import dropbox
+from Crypto.Cipher import AES
+import hashlib
+import sys ,getpass
+
+leng=len(sys.argv)-1
+
+if leng == 0:
+    print("No files for encryption.")
+    print("Try './encbox /path/to/file'\nQuiting!")
+    sys.exit(1)
 
 #taking the app key and secret 
 key=raw_input('Enter your app key : ')
