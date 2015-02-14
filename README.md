@@ -5,3 +5,5 @@ encbox.py first connects to your Dropbox account , you must have a developer acc
 After the succesful connection,script parse and encrypts the file(s),using the AES encryption.
 
 *The files' names are inserted in a Bloom filter.*
+
+decbox.py will be added soon .
