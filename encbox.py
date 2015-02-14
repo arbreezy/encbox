@@ -4,6 +4,7 @@ import dropbox
 from Crypto.Cipher import AES
 import hashlib
 import sys ,getpass
+import os ,random ,struct
 
 leng=len(sys.argv)-1
 
@@ -26,8 +27,7 @@ def encrypt_file(key,in_filename, out_filename=None, chunksize=64*1024):
             Name of the input file
 
         out_filename:
-            If None, '<in_filename>.enc' will be used.
-
+            Encrypted file
         chunksize:
             Sets the size of the chunk which the function
             uses to read and encrypt the file. Larger chunk
@@ -59,11 +59,12 @@ def encrypt_file(key,in_filename, out_filename=None, chunksize=64*1024):
    
 
 #taking the app key and secret 
-key=raw_input('Enter your app key : ')
-secret=raw_input('Enter your app secret : ')
+key=raw_input('Enter your app key :')
+print
+secret=raw_input('Enter your app secret :')
+print
 #initializing the flow 
 flow = dropbox.client.DropboxOAuth2FlowNoRedirect(key,secret)
-
 #we are ready to start the connection, so we can generate our token
 authorize_url = flow.start()
 
@@ -80,5 +81,17 @@ access_token,user_id= flow.finish(code)
 client = dropbox.client.DropboxClient(access_token)
 print 'The account has been linked successfully'
 print
+print "Give a srong password to generate the key for AES encryption"
+password=getpass.getpass()
+key = hashlib.sha256(password).digest()
+# encrypt the file(s)
 
-
+for i in range(leng):
+	encrypt_file(key,sys.argv[i+1])
+	#and we upload it
+	encrypted_file=''.join([sys.argv[i+1],'.enc'])
+	f = open(encrypted_file, 'rb')
+	response = client.put_file(encrypted_file, f)
+	#remove the local encryption file
+	os.remove(encrypted_file)
+	print 'uploaded: ', response
