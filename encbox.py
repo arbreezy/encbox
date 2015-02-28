@@ -27,8 +27,7 @@ def encrypt_file(key,in_filename, out_filename=None, chunksize=64*1024):
 
         key:
             The encryption key - a string that must be
-            either 16, 24 or 32 bytes long. Longer keys
-            are more secure.
+            either 16, 24 or 32 bytes long
 
         in_filename:
             Name of the input file
@@ -36,10 +35,7 @@ def encrypt_file(key,in_filename, out_filename=None, chunksize=64*1024):
         out_filename:
             Encrypted file
         chunksize:
-            Sets the size of the chunk which the function
-            uses to read and encrypt the file. Larger chunk
-            sizes can be faster for some files and machines.
-            chunksize must be divisible by 16.
+            Chunksize must be divisible by 16.
     """
 
    
@@ -67,6 +63,7 @@ def encrypt_file(key,in_filename, out_filename=None, chunksize=64*1024):
 Bloomfilter()
 print
 print "Give a srong password to generate the key for AES encryption"
+print "This password would be asked for the decryption of the file(s),do not forget it!!"
 password=getpass.getpass()
 key = hashlib.sha256(password).digest()
 # encrypt the file(s)
