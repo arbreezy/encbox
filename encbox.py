@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #lets import the dropbox module
-import dropbox
+import init_connection
 from Crypto.Cipher import AES
 import hashlib
 import sys ,getpass
@@ -64,30 +64,6 @@ def encrypt_file(key,in_filename, out_filename=None, chunksize=64*1024):
 
                 outfile.write(encryptor.encrypt(chunk))
    
-
-#taking the app key and secret 
-key=raw_input('Enter your app key :')
-print
-secret=raw_input('Enter your app secret :')
-print
-#initializing the flow 
-flow = dropbox.client.DropboxOAuth2FlowNoRedirect(key,secret)
-#we are ready to start the connection, so we can generate our token
-authorize_url = flow.start()
-
-print '1. Go to: ' + authorize_url
-print '2. Click "Allow" (you might have to log in first)'
-print '3. Copy the authorization code.'
-
-code = raw_input("Enter the authorization code here: ").strip()
-
-#then we copy/paste the token from the website
-# This will fail if the user enters an invalid authorization code
-
-access_token,user_id= flow.finish(code)
-client = dropbox.client.DropboxClient(access_token)
-print 'The account has been linked successfully'
-print
 Bloomfilter()
 print
 print "Give a srong password to generate the key for AES encryption"
