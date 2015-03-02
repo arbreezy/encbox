@@ -8,4 +8,4 @@ After the succesful connection,script parse and encrypts the file(s),using AES e
 
 decbox.py download an encrypted file(s) from your dropbox account and then decrypt it locally.
 
-TIP: your passwords *must* be the same for encryption and decryption  
+TIP: your passwords *must* be the same for encryption and decryption.
