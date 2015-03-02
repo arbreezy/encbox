@@ -1,5 +1,4 @@
 #!/usr/bin/python
-#lets import the dropbox module
 import init_connection
 from Crypto.Cipher import AES
 import hashlib
@@ -11,7 +10,7 @@ leng=len(sys.argv)-1
 
 if leng == 0:
     print("No files for encryption.")
-    print("Try './encbox /path/to/file'\nQuiting!")
+    print("Try 'python encbox.py /path/to/file'\nQuiting!")
     sys.exit(1)
 
 def Bloomfilter():
@@ -63,7 +62,7 @@ def encrypt_file(key,in_filename, out_filename=None, chunksize=64*1024):
 Bloomfilter()
 print
 print "Give a srong password to generate the key for AES encryption"
-print "This password would be asked for the decryption of the file(s),do not forget it!!"
+print "**This password would be asked for the decryption of the file(s).Do not forget it!!**"
 password=getpass.getpass()
 key = hashlib.sha256(password).digest()
 # encrypt the file(s)
@@ -73,7 +72,7 @@ for i in range(leng):
 	#and we upload it
 	encrypted_file=''.join([sys.argv[i+1],'.enc'])
 	f = open(encrypted_file, 'rb')
-	response = client.put_file(encrypted_file, f)
+	response = init_connection.client.put_file(encrypted_file, f)
 	#remove the local encryption file
 	os.remove(encrypted_file)
-	print 'uploaded: ', response
+	print "Successfully uploaded"
